@@ -1,0 +1,61 @@
+﻿<Window x:Class="ManagementSystem.View.TeacherView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ManagementSystem.View"
+        mc:Ignorable="d"
+        Title="StudentDetails" Height="450" Width="800">
+    <Grid Margin="10" HorizontalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="2" Grid.ColumnSpan="2">
+            <DataGrid ItemsSource="{Binding Students}" AutoGenerateColumns="False" Margin="10" SelectedItem="{Binding selectedStudent}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Student ID" Binding="{Binding StudentId}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Student Name" Binding="{Binding Name}"></DataGridTextColumn>
+                </DataGrid.Columns>
+                <DataGrid.RowDetailsTemplate>
+                    <DataTemplate>
+                        <DataGrid ItemsSource="{Binding Marks}" AutoGenerateColumns="False" Margin="10">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Subject" Binding="{Binding Subject}"/>
+                                <DataGridTextColumn Header="Score" Binding="{Binding Score}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </DataTemplate>
+                </DataGrid.RowDetailsTemplate>
+            </DataGrid>
+        </Grid>
+        <Grid Grid.Row="0" Grid.Column="0">
+            <StackPanel>
+                <Label>Student ID:</Label>
+                <Label>Name:</Label>
+                <Label>Science Marks:</Label>
+                <Label>English Marks:</Label>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="0" Grid.Column="1">
+            <StackPanel>
+                <TextBox x:Name="StudentIDtxt" Margin="5" Width="100" Text="{Binding NewStudentId, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <TextBox x:Name="StudentNametxt" Margin="5" Width="100" Text="{Binding NewStudentName, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <TextBox x:Name="ScienceMarks" Margin="5" Width="100" Text="{Binding NewStudentScMarks, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <TextBox x:Name="EnglishMarks" Margin="5" Width="100" Text="{Binding NewStudentEngMarks, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1" Grid.ColumnSpan="2">
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="Add" Margin="10" Command="{Binding AddStudentCommand}">Add Student</Button>
+                <Button Command="{Binding UpdateStudentCommand}" Margin="10">Update Student</Button>
+                <Button x:Name="Delete" Margin="10" Command="{Binding DeleteStudentCommand}">Delete Student</Button>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
